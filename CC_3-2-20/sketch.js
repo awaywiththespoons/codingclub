@@ -1,11 +1,21 @@
+/*
+Based on Coding Challange 30 - Danial Shiffman / Coding Train
+https://thecodingtrain.com/CodingChallenges/030-phyllotaxis.html
+
+Becca Rose 
+March 2020
+made @ coding club PM Studio in 
+b   r   i   s  t  o   l ll l l l 
+*/
+
 var n = 0;
 let c = 2;
 fillCol = 0;
 var img = [];
 i = 1;
 var sizeX_Y = 70;
-randX=0;
-randY=0;
+randX = 0;
+randY = 0;
 anglezz = 200;
 
 
@@ -24,17 +34,14 @@ function setup() {
     angleMode(DEGREES);
     colorMode(HSB);
     imageMode(CENTER);
-   // i=~~random(1,14);
+    // i=~~random(1,14);
 
 }
-
-
 
 
 function draw() {
     //background(0);
     phyllotaxis();
-
 }
 
 function phyllotaxis() {
@@ -45,33 +52,30 @@ function phyllotaxis() {
     var r = c * sqrt(n);
     var x = r * cos(a) + width / 2;
     var y = r * sin(a) + height / 2;
-  //  fill(n % 255);
+    //  fill(n % 255);
     noStroke();
     //tint(n%255);
-    image(img[i], x+randX, y+randY, sizeX_Y, sizeX_Y);
+    image(img[i], x + randX, y + randY, sizeX_Y, sizeX_Y);
 
 
     //    rect(x, y, 15, 15, n%255);
     //fillCol++;
     n++;
     console.log(n);
-    
-    
+
+
     ///////////////
     // change it up
     ///////////////
     if (n > 150) {
-        i=~~random(1,14);
+        i = ~~random(1, 14);
         n = random(100);
         c = random(100);
-        sizeX_Y = random(50,1000);
-        anglezz= random(10,300);
-        
-        //randX=random(100, width-100);
-       // randY=random(100, height-100);
-        
-        
-    
-    }
+        sizeX_Y = random(50, 200);
+        anglezz = random(10, 300);
 
+        //randX=random(100, width-100);
+        // randY=random(100, height-100);
+
+    }
 }
