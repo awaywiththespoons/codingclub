@@ -17,6 +17,9 @@ var sizeX_Y = 70;
 randX = 0;
 randY = 0;
 anglezz = 200;
+imageRound=0;
+//var x_location;
+//var y_location;
 
 
 function preload() {
@@ -34,7 +37,11 @@ function setup() {
     angleMode(DEGREES);
     colorMode(HSB);
     imageMode(CENTER);
+   // var x_location = width / 2;
+///    var y_location = height / 2;
     // i=~~random(1,14);
+      //   console.log("x= " + x_location);
+    //    console.log("y= " + y_location);
 
 }
 
@@ -47,21 +54,22 @@ function draw() {
 function phyllotaxis() {
     // background(0);
 
+   
     var a = n * anglezz;
 
     var r = c * sqrt(n);
-    var x = r * cos(a) + width / 2;
-    var y = r * sin(a) + height / 2;
+    var x = r * cos(a) + width/2;
+    var y = r * sin(a) + height/2;
     //  fill(n % 255);
-    noStroke();
+    // noStroke();
     //tint(n%255);
-    image(img[i], x + randX, y + randY, sizeX_Y, sizeX_Y);
+    image(img[i], x, y, sizeX_Y, sizeX_Y);
 
 
     //    rect(x, y, 15, 15, n%255);
     //fillCol++;
     n++;
-    console.log(n);
+      console.log("round" + imageRound + " n = " + n);
 
 
     ///////////////
@@ -69,13 +77,19 @@ function phyllotaxis() {
     ///////////////
     if (n > 150) {
         i = ~~random(1, 14);
-        n = random(100);
+        n = ~~random(100);
         c = random(100);
-        sizeX_Y = random(50, 200);
-        anglezz = random(10, 300);
+       sizeX_Y = random(50, 200);
+        anglezz = random(359);
+        imageRound++;
+      //  x_location = ~~random((width / 2) - 10, (width / 2) + 10);
+    //    y_location = ~~random((height / 2) - 10, (height / 2) + 10);
+        
+      //   console.log(n);
+      //  console.log("x= " + x_location);
+    //    console.log("y= " + y_location);
 
-        //randX=random(100, width-100);
-        // randY=random(100, height-100);
+    
 
     }
 }
