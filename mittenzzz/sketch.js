@@ -29,102 +29,229 @@ wish list
 
 */
 
+// to do make mitten shape and work out pattern according to this
+// make a knit style render
+
+
 let board = [
-  ["O", "O", "O", "O", "O"],
-  ["O", "O", "O", "O", "O"],
-  ["O", "O", "O", "O", "O"],
-  ["O", "O", "O", "O", "O"],
-  ["O", "O", "O", "O", "O"],
+  [0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0]
 ];
 
 let w, h;
 let patternSpace;
 let drawSize = 500;
 
+let stitchIndexX;
+let stitchIndexY;
+let stitchGridsize = 5;
+let stitchimg;
+
+function preload(){
+    stitchimg = loadImage("imgs/stitch.png");
+}
+
 function setup() {
-  createCanvas(700, 500);
-  patternSpace = createGraphics(width - drawSize, height)
-  background(200, 0, 100);
-  rectMode(CENTER);
-  w = drawSize / 5;
-  h = drawSize / 5;
+    createCanvas(700, 600);
+    //create a space to draw design on
+    background(200, 0, 100);
+    rectMode(CENTER);
+    imageMode(CENTER);
+    // number of stitches per grid (oveal size of grid / number of stitches you want in grid)
+    w = drawSize / stitchGridsize*.80;
+    h = drawSize / stitchGridsize*.80;
 
-  // draw some grid lines
-  for (var i = w; i < drawSize; i = i + w) {
-    for (var j = h; j < drawSize; j = j + h) {
-      stroke(255)
-      line(i, 0, i, drawSize)
-      line(0, j, drawSize, j)
+    // draw some grid lines
+    for (var i = w; i < drawSize; i = i + w) {
+        for (var j = h; j < drawSize; j = j + h) {
+            stroke(255);
+            line(i, 0, i, drawSize*1.1);
+            line(0, j, drawSize, j);
+
+        }
     }
-  }
 
-  // for (i = 0; i < 5; i++) {
-  //   for (j = 0; j < 5;j++) {
-  //     var x = drawSize + (i * 10);
-  //     var y = height-10 - (j * 10);
-  //     noFill();
-  //     stroke(255);
-  //   //  rect(x, y, 5, 5);
-  //     text(x, y, board[i][j]);
+
+
+//    beginShape();
+//    
+//    curveVertex((w / 2) - 15, h - 2);
+//    curveVertex(15, h - 14);
+//    curveVertex(8, 20);
+//    curveVertex((w / 2) - 4, 8);
+//    curveVertex((w / 2) - 10, h - 10);
+//    curveVertex(12, h - 6);
+//    curveVertex((w / 2) - 15, h - 2);
+//    endShape();
+//    
+//        beginShape();
+//     curveVertex((w / 2) - 15, h - 2); // random not sure how this one fits
+//     curveVertex(w-5, h - 14); // left bottom corner start
+//     curveVertex(w-8, 20); // left top corner
+//     curveVertex((w / 2) + 4, 8); // right top corner
+//     curveVertex((w / 2) + 10, h - 10); // right bottom corner
+//     curveVertex(w-12, h - 6); // left bottom corner end
+//     curveVertex((w / 2) + 15, h - 2); // random not sure how this 
+//    endShape();
+//
+//    strokeWeight(5);
+//    stroke(0);
+//    point((w / 2) - 15, h - 2); // random not sure how this one fits
+//    point(5, h - 14); // left bottom corner start
+//    point(8, 20); // left top corner
+//    point((w / 2) - 4, 8); // right top corner
+//    point((w / 2) - 10, h - 10); // right bottom corner
+//    point(12, h - 6); // left bottom corner end
+//    point((w / 2) - 15, h - 2); // random not sure how this 
+//    strokeWeight(1);
+//    stroke(255);
+//
+//    
+//     strokeWeight(5);
+//    stroke(0);
+//    point((w / 2) - 15, h - 2); // random not sure how this one fits
+//    point(w-5, h - 14); // left bottom corner start
+//    point(w-8, 20); // left top corner
+//    point((w / 2) + 4, 8); // right top corner
+//    point((w / 2) + 10, h - 10); // right bottom corner
+//    point(w-12, h - 6); // left bottom corner end
+//    point((w / 2) + 15, h - 2); // random not sure how this 
+//    strokeWeight(1);
+//    stroke(255);
+
+
+    //    push(); // Start a new drawing state
+    //    fill(0, 125);
+    //    rotate(radians(345));
+    //    translate(58, h-30);
+    //ellipse(0, 0, (w/2)-8, h); 
+    //pop(); // Restore original state
+    //    
+    //       push(); // Start a new drawing state
+    //  fill(0, 125);
+    //    rotate(radians(15));
+    //    translate(38,h-57);
+    //ellipse(0, 0, (w/2)-8, h); 
+    //pop(); // Restore original state
+    //    
+
+    //    strokeWeight(5);
+    //    //start points
+    //    point((w / 2) - 20, h - 10); // random not sure how this one fits
+    //    point(10, h - 1); // left bottom corner start
+    //    point(10, 20);     // left top corner
+    //    point((w / 2) - 8, 5);     // right top corner
+    //    point((w / 2) - 10, h - 1);     // right bottom corner
+    //    point(10, h - 1); // left bottom corner end
+    //    point((w / 2) - 20, h - 10); // random not sure how this one fits
+    //    strokeWeight(1); 
+
+    // draw a basic mitten
+
+
+    // for (i = 0; i < 5; i++) {
+    //   for (j = 0; j < 5;j++) {
+    //     var x = drawSize + (i * 10);
+    //     var y = height-10 - (j * 10);
+    //     noFill();
+    //     stroke(255);
+    //   //  rect(x, y, 5, 5);
+    //     text(x, y, board[i][j]);
+
 } //end of setup
 
 function draw() {
-
-
-
 
 } //end of draw
 
 
 function keyPressed() {
 
-  makePattern();
-
-
-
+    tilePattern();
 
 }
 
 function mousePressed() {
 
-  // map the mouse value to the array
+    // map the mouse value to the array
 
-  let stitchIndexX = floor(mouseX / w);
-  let stitchIndexY = floor(mouseY / h);
-  var x = w * stitchIndexX + w / 2;
-  var y = h * stitchIndexY + h / 2;
-  console.log("iX = " + stitchIndexX + " iY= " + stitchIndexY);
-  console.log("old stitch = " + board[stitchIndexY][stitchIndexX]);
-  // if its o then change (splice) to x and vice versa
-  if (board[stitchIndexY][stitchIndexX] == "O") {
-    board[stitchIndexY].splice(stitchIndexX, 0, "X");
-    console.log("new stitch = " + board[stitchIndexY][stitchIndexX]);
-    // and colour X stitch
-    fill(0);
-    ellipse(x, y, w - 10, h - 10);
-  } else {
-    board[stitchIndexY].splice(stitchIndexX, 0, "O");
-    console.log("new stitch = " + board[stitchIndexY][stitchIndexX]);
-    /// and colour O stich
-    noStroke();
-    fill(200, 0, 100);
-    rect(x, y, w - 5, h - 5);
-  }
+    stitchIndexX = floor(mouseX / w);
+    stitchIndexY = floor(mouseY / h);
+    var x = w * stitchIndexX + w / 2;
+    var y = h * stitchIndexY + h / 2;
+    console.log("iX = " + stitchIndexX + " iY= " + stitchIndexY);
+    console.log("old stitch = " + board[stitchIndexY][stitchIndexX]);
+    // if its o then change (splice) to x and vice versa
+    if (board[stitchIndexY][stitchIndexX] == 0) {
+        board[stitchIndexY][stitchIndexX] = 1;
+        //    board[stitchIndexY].splice(stitchIndexX, 0, 1);
+        console.log("new stitch = " + board[stitchIndexY][stitchIndexX]);
+        // and colour X stitch
+
+
+        noStroke();
+        
+      
+        //fill(40);
+       // rect(x, y, w-1, h - 1);
+              image(stitchimg, x, y);
+    } else {
+
+        board[stitchIndexY][stitchIndexX] = 0;
+        // board[stitchIndexY].splice(stitchIndexX, 0, 1);
+        console.log("new stitch = " + board[stitchIndexY][stitchIndexX]);
+        /// and colour O stich
+        noStroke();
+        fill(200, 0, 100);
+        rect(x, y, w - 5, h - 5);
+    }
 
 } //end of mousePressed
 
 
-function makePattern() {
+function singlePattern(xStart, yStart) {
 
-  patternSpace.background(0);
-  image(patternSpace, drawSize, 0);
+    // first make small version of the pattern
+    // board now has a bunch of new
+    console.log(board);
+    console.log("making pattern");
 
-  // first make small version of the pattern
-  // board now has a bunch of new
-  console.log(board);
-  console.log("making pattern");
-  // now make a repeat pattern
+    // loop to  make a repeat pattern
 
+    // loop to tranlate draw into pattern
+    for (let i = 0; i < stitchGridsize; i++) {
+        for (let j = 0; j < stitchGridsize; j++) {
+            if (board[j][i] == 1) {
+                noStroke();
+                fill(0);
+            } else {
+                noStroke();
+                fill(200, 0, 100);
+            }
+
+            let newW = i * 10;
+            let newY = j * 10;
+            // using starting points from tile pattern
+            rect(xStart + newW, yStart + newY, 5, 5);
+
+        } //j
+    } //i
 
 
 } //end of makePattern
+
+function tilePattern() {
+
+    for (i = 0; i <= 2; i++) {
+        for (j = 1; j <= 6; j++) {
+            x = drawSize + 70 * i;
+            y = height - 70 * j;
+            singlePattern(x, y);
+
+        }
+    }
+
+}
