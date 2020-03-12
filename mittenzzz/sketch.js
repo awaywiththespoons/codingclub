@@ -48,79 +48,82 @@ let drawSize = 500;
 let stitchIndexX;
 let stitchIndexY;
 let stitchGridsize = 5;
-let stitchimg;
+let stitchin;
+let stitchout;
 
-function preload(){
-    stitchimg = loadImage("imgs/stitch.png");
+function preload() {
+    stitchin = loadImage("imgs/stitch_in.png");
+    stitchout = loadImage("imgs/stitch_out.png");
 }
 
 function setup() {
     createCanvas(700, 600);
     //create a space to draw design on
-    background(200, 0, 100);
+    background(0);
     rectMode(CENTER);
     imageMode(CENTER);
     // number of stitches per grid (oveal size of grid / number of stitches you want in grid)
-    w = drawSize / stitchGridsize*.80;
-    h = drawSize / stitchGridsize*.80;
+    w = drawSize / stitchGridsize * .80;
+    h = drawSize / stitchGridsize * .80;
 
     // draw some grid lines
     for (var i = w; i < drawSize; i = i + w) {
         for (var j = h; j < drawSize; j = j + h) {
             stroke(255);
-            line(i, 0, i, drawSize*1.1);
+            line(i, 0, i, drawSize * 1.1);
             line(0, j, drawSize, j);
+              //   image(stitchout, x, y);
 
         }
     }
 
 
 
-//    beginShape();
-//    
-//    curveVertex((w / 2) - 15, h - 2);
-//    curveVertex(15, h - 14);
-//    curveVertex(8, 20);
-//    curveVertex((w / 2) - 4, 8);
-//    curveVertex((w / 2) - 10, h - 10);
-//    curveVertex(12, h - 6);
-//    curveVertex((w / 2) - 15, h - 2);
-//    endShape();
-//    
-//        beginShape();
-//     curveVertex((w / 2) - 15, h - 2); // random not sure how this one fits
-//     curveVertex(w-5, h - 14); // left bottom corner start
-//     curveVertex(w-8, 20); // left top corner
-//     curveVertex((w / 2) + 4, 8); // right top corner
-//     curveVertex((w / 2) + 10, h - 10); // right bottom corner
-//     curveVertex(w-12, h - 6); // left bottom corner end
-//     curveVertex((w / 2) + 15, h - 2); // random not sure how this 
-//    endShape();
-//
-//    strokeWeight(5);
-//    stroke(0);
-//    point((w / 2) - 15, h - 2); // random not sure how this one fits
-//    point(5, h - 14); // left bottom corner start
-//    point(8, 20); // left top corner
-//    point((w / 2) - 4, 8); // right top corner
-//    point((w / 2) - 10, h - 10); // right bottom corner
-//    point(12, h - 6); // left bottom corner end
-//    point((w / 2) - 15, h - 2); // random not sure how this 
-//    strokeWeight(1);
-//    stroke(255);
-//
-//    
-//     strokeWeight(5);
-//    stroke(0);
-//    point((w / 2) - 15, h - 2); // random not sure how this one fits
-//    point(w-5, h - 14); // left bottom corner start
-//    point(w-8, 20); // left top corner
-//    point((w / 2) + 4, 8); // right top corner
-//    point((w / 2) + 10, h - 10); // right bottom corner
-//    point(w-12, h - 6); // left bottom corner end
-//    point((w / 2) + 15, h - 2); // random not sure how this 
-//    strokeWeight(1);
-//    stroke(255);
+    //    beginShape();
+    //    
+    //    curveVertex((w / 2) - 15, h - 2);
+    //    curveVertex(15, h - 14);
+    //    curveVertex(8, 20);
+    //    curveVertex((w / 2) - 4, 8);
+    //    curveVertex((w / 2) - 10, h - 10);
+    //    curveVertex(12, h - 6);
+    //    curveVertex((w / 2) - 15, h - 2);
+    //    endShape();
+    //    
+    //        beginShape();
+    //     curveVertex((w / 2) - 15, h - 2); // random not sure how this one fits
+    //     curveVertex(w-5, h - 14); // left bottom corner start
+    //     curveVertex(w-8, 20); // left top corner
+    //     curveVertex((w / 2) + 4, 8); // right top corner
+    //     curveVertex((w / 2) + 10, h - 10); // right bottom corner
+    //     curveVertex(w-12, h - 6); // left bottom corner end
+    //     curveVertex((w / 2) + 15, h - 2); // random not sure how this 
+    //    endShape();
+    //
+    //    strokeWeight(5);
+    //    stroke(0);
+    //    point((w / 2) - 15, h - 2); // random not sure how this one fits
+    //    point(5, h - 14); // left bottom corner start
+    //    point(8, 20); // left top corner
+    //    point((w / 2) - 4, 8); // right top corner
+    //    point((w / 2) - 10, h - 10); // right bottom corner
+    //    point(12, h - 6); // left bottom corner end
+    //    point((w / 2) - 15, h - 2); // random not sure how this 
+    //    strokeWeight(1);
+    //    stroke(255);
+    //
+    //    
+    //     strokeWeight(5);
+    //    stroke(0);
+    //    point((w / 2) - 15, h - 2); // random not sure how this one fits
+    //    point(w-5, h - 14); // left bottom corner start
+    //    point(w-8, 20); // left top corner
+    //    point((w / 2) + 4, 8); // right top corner
+    //    point((w / 2) + 10, h - 10); // right bottom corner
+    //    point(w-12, h - 6); // left bottom corner end
+    //    point((w / 2) + 15, h - 2); // random not sure how this 
+    //    strokeWeight(1);
+    //    stroke(255);
 
 
     //    push(); // Start a new drawing state
@@ -193,11 +196,12 @@ function mousePressed() {
 
 
         noStroke();
-        
-      
+
+
         //fill(40);
-       // rect(x, y, w-1, h - 1);
-              image(stitchimg, x, y);
+        // rect(x, y, w-1, h - 1);
+        image(stitchin, x, y);
+   
     } else {
 
         board[stitchIndexY][stitchIndexX] = 0;
