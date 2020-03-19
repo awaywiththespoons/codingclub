@@ -35,10 +35,11 @@ a {
 
 /*----IMAGE stuff----*/
 
-img {
-  width: 100%;
+.imgFrontpage img {
+  width: 80%;
   height: auto;
   opacity: 1;
+
 }
 
 .sketchbook {

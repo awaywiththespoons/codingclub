@@ -1,101 +1,87 @@
-//inktober 2017
-//8
-//lemons
-//this p5 play library is amazing thankyou.
+// practice website
 
-var walker;
-var closedLemon;
-var closedLemon1;
+let mainImg, boardImg, schematicImg, toyImg, toy1Img, PRRRRRT;
+let groupX, groupY, schematicX, schematicY, toyX, toyY, toy1X, toy1Y, PRRRRRTX, PRRRRRTY;
+
+let practice1, practice2, practice3, practice4, practice5;
+
+let text1 = "Schematic - the board is designed with an open source software that can be used with some basic instruction";
+let text2 = "Gatherings - organinsing different kinds of gatherings where people who are either interested in the tech / the music / or the textiles get to getter to assemble on of the boards - such as a workshop in an arts space, or a meet-up in a hackspace"
+let text5 = "";
+let text3 = "Things - In the workshops or the gatherings people make things that they then take with them (in this case they have made a stuffed synth)";
+let text4 = "Sounds - There is space to jam or make music with the stuffed synhts that people make";
+
+
+function preload() {
+    mainImg = loadImage("board.png");
+    groupImg = loadImage("group.png");
+    schematicImg = loadImage("schematic.png");
+    toyImg = loadImage("toy.png");
+    toy1Img = loadImage("toy1.png");
+    PRRRRRT = loadImage("PRRRRRT.png");
+}
 
 function setup() {
+    imageMode(CENTER);
     createCanvas(windowWidth, windowHeight);
+    practice1 = new Practice(schematicImg, 150, 150, text1, 20);
+    practice2 = new Practice(groupImg, 180, height - 300, text2, 20);
+    practice3 = new Practice(toyImg, width - 200, height - 350, text5, 20);
+    practice5 = new Practice(toy1Img, width - 100, height - 250, text3, 20);
 
-    song = loadSound("lemon_sound.wav");
-    //WALKER
-    walker = createSprite(width / 2, height / 4);
-    walker.addAnimation("walking", "walker001.png", "walker003.png");
-    walker.addAnimation("still", "walker001.png");
+    practice4 = new Practice(PRRRRRT, width - 250, 100, text4, 20);
+
+    // make some random values for x + y
+
+    practice1.display(); //run the display function of the object
+    practice2.display(); //run the display function of the object
+    practice3.display(); //run the display function of the object
+    practice4.display(); //run the display function of the object
+    practice5.display(); //run the display function of the object
+
+
+
+    image(mainImg, width / 2, height / 2);
+
 } //end of setup
 
 function draw() {
-    background(102, 255, 102);
+    // background(255);
 
-    //every 10 frames
-    if (frameCount % 40 == 0) {
 
-        var num = ~~random(5);
 
-        switch (num) {
-            case 0:
-                console.log("Zero"); // Does not execute
-                closedLemon = createSprite(walker.position.x, walker.position.y - 200);
-                closedLemon.addAnimation("normal", "closedLemon001.png");
-                closedLemon.rotation = random(360);
-                // closedLemon.rotation = random(360);
-                closedLemon.life = 1000;
-
-                break;
-            case 1:
-                console.log("One"); // Prints "One"
-                closedLemon1 = createSprite(walker.position.x, walker.position.y - 120);
-                closedLemon1.addAnimation("normal", "closedLemon1001.png");
-                closedLemon1.rotation = random(360);
-                closedLemon1.life = 1000;
-                break;
-
-            case 2:
-                console.log("One"); // Prints "One"
-                closedLemon2 = createSprite(walker.position.x, walker.position.y - 120);
-                closedLemon2.addAnimation("normal", "closedLemon2001.png");
-                closedLemon2.rotation = random(360);
-                closedLemon2.life = 1000;
-                break;
-
-            case 3:
-                console.log("One"); // Prints "One"
-                closedLemon3 = createSprite(walker.position.x, walker.position.y - 120);
-                closedLemon3.addAnimation("normal", "closedLemon3001.png");
-                closedLemon3.rotation = random(360);
-                closedLemon3.life = 1000;
-                break;
-
-            case 4:
-                console.log("One"); // Prints "One"
-                closedLemon4 = createSprite(walker.position.x, walker.position.y - 120);
-                closedLemon4.addAnimation("normal", "closedLemon4001.png");
-                closedLemon4.rotation = random(360);
-                closedLemon4.life = 1000;
-                break;
-        }
-
-    }
-
-    drawSprites();
 } //end of draw
 
-function keyPressed() {
-    if (song.isPlaying()) {} else {
-        song.play();
+
+class Practice {
+
+    // Constructor (happens once in setup when you say "new walker"
+    constructor(img, x, y, textz, textS) {
+        this.x = x;
+        this.y = y;
+        this.img = img;
+        this.textz = textz;
+        this.textS = textS;
+
     }
 
-    if (keyCode == RIGHT_ARROW) {
-        walker.changeAnimation("walking");
-        walker.mirrorX(-1);
-        walker.setSpeed(1.5, 0);
-    } else if (keyCode == DOWN_ARROW) {
-        walker.changeAnimation("walking");
-        walker.setSpeed(1.5, 90);
-    } else if (keyCode == LEFT_ARROW) {
-        walker.changeAnimation("walking");
-        walker.mirrorX(1);
-        walker.setSpeed(1.5, 180);
-    } else if (keyCode == UP_ARROW) {
-        walker.changeAnimation("walking");
-        walker.setSpeed(1.5, -90);
-    } else if (key == ' ') {
-        walker.changeAnimation("still");
-        walker.setSpeed(0, 0);
-        song.stop();
+
+    display() {
+        stroke(0);
+        //point(x, y);
+        //ellipse(this.x, this.y, 100, 100);
+
+
+        line(this.x, this.y, width / 2, height / 2);
+        textSize(this.textS);
+        image(this.img, this.x, this.y);
+
+        if (this.x < width / 2) {
+            text(this.textz, this.x + 10 + (this.img.width / 2), this.y, 300, 1000);
+        } else {
+            text(this.textz, this.x -(this.img.width)- 100, this.y, 300, 1000);
+        }
+        // image(img1, x-100, y-100, img1.width/6, img1.height/6);
     }
 
-} //end of keypressed
+}
