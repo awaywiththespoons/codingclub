@@ -32,7 +32,7 @@ wish list
 // to do make mitten shape and work out pattern according to this
 // make a knit style render
 
-
+// make an array to keep track of drawing space for pattern
 let board = [
   [0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0],
@@ -51,17 +51,18 @@ let stitchGridsize = 5;
 let stitchin;
 let stitchout;
 
-function preload() {
-    stitchin = loadImage("imgs/stitch_in.png");
-    stitchout = loadImage("imgs/stitch_out.png");
-}
+//background colour
+let backgroundColour = 0;
+//pattern colour
+
+let patternColour = 125;
 
 function setup() {
-    createCanvas(700, 600);
-    //create a space to draw design on
-    background(0);
+    createCanvas(700, 600); //create a space to draw design on
+    background(patternColour);
     rectMode(CENTER);
-    imageMode(CENTER);
+    //   imageMode(CENTER);
+
     // number of stitches per grid (oveal size of grid / number of stitches you want in grid)
     w = drawSize / stitchGridsize * .80;
     h = drawSize / stitchGridsize * .80;
@@ -72,170 +73,68 @@ function setup() {
             stroke(255);
             line(i, 0, i, drawSize * 1.1);
             line(0, j, drawSize, j);
-              //   image(stitchout, x, y);
-
         }
     }
 
-
-
-    //    beginShape();
-    //    
-    //    curveVertex((w / 2) - 15, h - 2);
-    //    curveVertex(15, h - 14);
-    //    curveVertex(8, 20);
-    //    curveVertex((w / 2) - 4, 8);
-    //    curveVertex((w / 2) - 10, h - 10);
-    //    curveVertex(12, h - 6);
-    //    curveVertex((w / 2) - 15, h - 2);
-    //    endShape();
-    //    
-    //        beginShape();
-    //     curveVertex((w / 2) - 15, h - 2); // random not sure how this one fits
-    //     curveVertex(w-5, h - 14); // left bottom corner start
-    //     curveVertex(w-8, 20); // left top corner
-    //     curveVertex((w / 2) + 4, 8); // right top corner
-    //     curveVertex((w / 2) + 10, h - 10); // right bottom corner
-    //     curveVertex(w-12, h - 6); // left bottom corner end
-    //     curveVertex((w / 2) + 15, h - 2); // random not sure how this 
-    //    endShape();
-    //
-    //    strokeWeight(5);
-    //    stroke(0);
-    //    point((w / 2) - 15, h - 2); // random not sure how this one fits
-    //    point(5, h - 14); // left bottom corner start
-    //    point(8, 20); // left top corner
-    //    point((w / 2) - 4, 8); // right top corner
-    //    point((w / 2) - 10, h - 10); // right bottom corner
-    //    point(12, h - 6); // left bottom corner end
-    //    point((w / 2) - 15, h - 2); // random not sure how this 
-    //    strokeWeight(1);
-    //    stroke(255);
-    //
-    //    
-    //     strokeWeight(5);
-    //    stroke(0);
-    //    point((w / 2) - 15, h - 2); // random not sure how this one fits
-    //    point(w-5, h - 14); // left bottom corner start
-    //    point(w-8, 20); // left top corner
-    //    point((w / 2) + 4, 8); // right top corner
-    //    point((w / 2) + 10, h - 10); // right bottom corner
-    //    point(w-12, h - 6); // left bottom corner end
-    //    point((w / 2) + 15, h - 2); // random not sure how this 
-    //    strokeWeight(1);
-    //    stroke(255);
-
-
-    //    push(); // Start a new drawing state
-    //    fill(0, 125);
-    //    rotate(radians(345));
-    //    translate(58, h-30);
-    //ellipse(0, 0, (w/2)-8, h); 
-    //pop(); // Restore original state
-    //    
-    //       push(); // Start a new drawing state
-    //  fill(0, 125);
-    //    rotate(radians(15));
-    //    translate(38,h-57);
-    //ellipse(0, 0, (w/2)-8, h); 
-    //pop(); // Restore original state
-    //    
-
-    //    strokeWeight(5);
-    //    //start points
-    //    point((w / 2) - 20, h - 10); // random not sure how this one fits
-    //    point(10, h - 1); // left bottom corner start
-    //    point(10, 20);     // left top corner
-    //    point((w / 2) - 8, 5);     // right top corner
-    //    point((w / 2) - 10, h - 1);     // right bottom corner
-    //    point(10, h - 1); // left bottom corner end
-    //    point((w / 2) - 20, h - 10); // random not sure how this one fits
-    //    strokeWeight(1); 
-
-    // draw a basic mitten
-
-
-    // for (i = 0; i < 5; i++) {
-    //   for (j = 0; j < 5;j++) {
-    //     var x = drawSize + (i * 10);
-    //     var y = height-10 - (j * 10);
-    //     noFill();
-    //     stroke(255);
-    //   //  rect(x, y, 5, 5);
-    //     text(x, y, board[i][j]);
-
 } //end of setup
-
-function draw() {
-
-} //end of draw
 
 
 function keyPressed() {
 
-    tilePattern();
-
+    tilePattern(); // for testing - press a key to render the mitten pattern
 }
 
 function mousePressed() {
 
-    // map the mouse value to the array
+drawPixels();
 
+} //end of mousePressed
+
+function drawPixels(){
+        // map the mouse pressed value to the array so that  you can store the drawing you make
     stitchIndexX = floor(mouseX / w);
     stitchIndexY = floor(mouseY / h);
     var x = w * stitchIndexX + w / 2;
     var y = h * stitchIndexY + h / 2;
     console.log("iX = " + stitchIndexX + " iY= " + stitchIndexY);
     console.log("old stitch = " + board[stitchIndexY][stitchIndexX]);
-    // if its o then change (splice) to x and vice versa
+    
+    // when you are drawing a new pixel, if its 0 then change (splice) to x and vice versa
     if (board[stitchIndexY][stitchIndexX] == 0) {
         board[stitchIndexY][stitchIndexX] = 1;
         //    board[stitchIndexY].splice(stitchIndexX, 0, 1);
         console.log("new stitch = " + board[stitchIndexY][stitchIndexX]);
-        // and colour X stitch
-
-
+        // and colour X stitch as background colour
         noStroke();
-
-
-        //fill(40);
-        // rect(x, y, w-1, h - 1);
-        image(stitchin, x, y);
-   
+        fill(backgroundColour); 
+        rect(x, y, w - 1, h - 1);
     } else {
-
         board[stitchIndexY][stitchIndexX] = 0;
         // board[stitchIndexY].splice(stitchIndexX, 0, 1);
         console.log("new stitch = " + board[stitchIndexY][stitchIndexX]);
-        /// and colour O stich
+        // and colour O stitch as background colour
         noStroke();
-        fill(200, 0, 100);
+        fill(patternColour); //make pattern colour
         rect(x, y, w - 5, h - 5);
     }
+}
 
-} //end of mousePressed
-
-
+// this is the mitten visualisaion space
 function singlePattern(xStart, yStart) {
 
     // first make small version of the pattern
-    // board now has a bunch of new
     console.log(board);
     console.log("making pattern");
-
-    // loop to  make a repeat pattern
-
     // loop to tranlate draw into pattern
     for (let i = 0; i < stitchGridsize; i++) {
         for (let j = 0; j < stitchGridsize; j++) {
             if (board[j][i] == 1) {
                 noStroke();
-                fill(0);
+                fill(backgroundColour);
             } else {
                 noStroke();
-                fill(200, 0, 100);
+                fill(patternColour);
             }
-
             let newW = i * 10;
             let newY = j * 10;
             // using starting points from tile pattern
@@ -245,7 +144,7 @@ function singlePattern(xStart, yStart) {
     } //i
 
 
-} //end of makePattern
+} //end of singlePattern
 
 function tilePattern() {
 
